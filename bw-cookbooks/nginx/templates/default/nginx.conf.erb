@@ -1,0 +1,50 @@
+# This file is generated and managed by Chef. It will be overwritten on the
+# next chef_run. Please, be careful!
+
+<% %w{daemon debug_points error_log lock_file master_process pcre_jit pid ssl_engine timer_resolution user worker_cpu_affinity worker_priority worker_processes worker_rlimit_core worker_rlimit_nofile worker_rlimit_sigpending working_directory}.each do |opt| -%>
+<% if @options.has_key?(opt) -%>
+<%= "#{opt} #{@options[opt]};" %>
+<% end -%>
+<% end -%>
+<% if @options.has_key?('env') and @options['env'].is_a?(Array) -%>
+
+<% @options['env'].each do |env_var| -%>
+env <%= env_var %>;
+<% end -%>
+<% end -%>
+
+events {
+  <% %w{accept_mutex accept_mutex_delay multi_accept use worker_aio_requests worker_connections}.each do |opt| -%>
+  <% if @options.has_key?(opt) -%>
+  <%= "#{opt} #{@options[opt]};" %>
+  <% end -%>
+  <% end -%>
+  <% if @options.has_key?('debug_connection') and @options['debug_connection'].is_a?(Array) -%>
+
+  <% @options['debug_connection'].each do |connection| -%>
+  debug_connection <%= connection %>;
+  <% end -%>
+  <% end -%>
+}
+
+http {
+  include       <%= @options['conf_dir'] %>/mime.types;
+  default_type  application/octet-stream;
+
+  log_format detailed '$remote_addr - $remote_user [$time_local] $host '
+                        '"$request" $status $body_bytes_sent '
+                        '"$http_referer" "$http_user_agent" "$http_x_forwarded_for" '
+                        '$pid $connection $request_time $msec '
+                        '$upstream_status $upstream_response_time';
+
+  access_log	<%= @options['log_dir'] %>/access.log detailed;
+
+  <% %w{server_names_hash_bucket_size server_names_hash_max_size types_hash_bucket_size variables_hash_bucket_size variables_hash_max_size }.each do |opt| -%>
+  <% if @options.has_key?(opt) -%>
+  <%= "#{opt} #{@options[opt]};" %>
+  <% end -%>
+  <% end -%>
+
+  include <%= @options['conf_dir'] %>/conf.d/*.conf;
+  include <%= @options['conf_dir'] %>/sites-enabled/*;
+}

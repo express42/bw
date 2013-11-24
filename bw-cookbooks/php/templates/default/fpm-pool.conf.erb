@@ -1,0 +1,38 @@
+; Chef generated configuration
+; for <%= @name %> php fastcgi service
+
+[<%= @name %>]
+
+listen = <%= @address %>:<%= @port %>
+listen.backlog = <%= @backlog %>
+listen.allowed_clients = <%= @allow %>
+
+
+user = <%= @user %>
+group = <%= @group %>
+
+pm = dynamic
+
+pm.max_children = <%= @limits[:children] %>
+pm.start_servers = 2
+pm.min_spare_servers = <%= @limits[:spare_children][:min] %>
+pm.max_spare_servers = <%= @limits[:spare_children][:max] %>
+pm.max_requests = <%= @limits[:requests] %>
+
+pm.status_path = /<%= @name %>/status
+
+request_terminate_timeout = <%= @request_terminate_timeout %>
+
+rlimit_files = <%= @limits[:files] %>
+rlimit_core = <%= @limits[:core] %>
+
+catch_workers_output = yes
+
+; Rewrite php.ini values
+<% @php.each do |name, value| %>
+<% if value.is_a? String %>
+php_admin_value[<%= name %>] = <%= value %>
+<% else %>
+php_admin_flag[<%= name %>] = <%= value %>
+<% end %>
+<% end %>
