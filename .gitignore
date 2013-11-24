@@ -7,3 +7,5 @@
 *.un~
 /cookbooks
 tmp/
+.chef/knife.rb
+.chef/*.pem
