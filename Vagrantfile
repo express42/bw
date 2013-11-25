@@ -14,7 +14,7 @@ Vagrant.configure("2") do |config|
       chef.encrypted_data_bag_secret_key_path = "./.chef/encrypted_data_bag_secret"
 
       chef.add_role "base"
-      chef.add_role "redmine"
+      chef.add_recipe "fake"
     end
   end
 end
