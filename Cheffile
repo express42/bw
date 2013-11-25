@@ -34,5 +34,4 @@ cookbook "ruby", :path => 'bw-cookbooks/ruby'
 
 cookbook "runit", :path => 'bw-cookbooks/runit'
 
-cookbook "redmine",
-  :git => "https://github.com/express42-cookbooks/redmine.git"
+cookbook "redmine", :path => 'inhouse-cookbooks/redmine'
