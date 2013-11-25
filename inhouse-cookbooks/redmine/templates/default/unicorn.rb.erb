@@ -1,10 +1,10 @@
 WORK_DIR = "<%= @application_directory %>"
-<% if @prefix -%> 
+<% if @prefix -%>
 PREFIX = "<%= @prefix -%>-"
 <% else -%>
 PREFIX = ""
 <% end -%>
-worker_processes <%= @worker_processes_num %>
+worker_processes 2
 working_directory WORK_DIR
 user "<%= @user %>"
 preload_app true

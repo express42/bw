@@ -113,7 +113,6 @@ template "/srv/redmine/config/unicorn.rb" do
   variables(
     :application_directory => "/srv/redmine",
     :listen => "*:8080",
-    :worker_processes_num => 2,
     :user => user,
     :timeout => 180
   )
