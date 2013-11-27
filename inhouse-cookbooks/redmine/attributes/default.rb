@@ -26,7 +26,7 @@ end
 set[:redmine][:dir] = "/srv/redmine-#{redmine[:version]}"
 
 default[:redmine][:dl_id]   = "76589"
-default[:redmine][:version] = "2.1.4"
+default[:redmine][:version] = "2.4.1"
 
 default[:redmine][:db][:type]     = "postgresql"
 default[:redmine][:db][:user]     = "redmine"
